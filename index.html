@@ -300,7 +300,26 @@
       
         
           
-            
+            <p>1.tcp/ip的体系结构</p>
+<blockquote>
+<p>tcp/ip共有5层<br>分别为：物理层、数据链路层、网络层、运输层、应用层<br>我们经常说的tcp/udp工作在第4层运输层，我的理解是用来传输的协议，而ip协议工作在第3层网络层，我理解是用来组建网络和识别网络。</p>
+</blockquote>
+<p>2.tcp和udp的区别</p>
+<blockquote>
+<p>tcp是传输控制协议，面向连接，用于提供可靠传输，建立连接需要3次握手，断开连接需要4次挥手<br>udp是用户数据报协议，无连接，传输不可靠，不需要建立连接和断开连接</p>
+</blockquote>
+<p>3.tcp的3次握手和4次挥手</p>
+<blockquote>
+<p>3次握手<br>1、client和server刚开始都处于CLOSED状态，server此时处于LISTEN状态<br>2、client发送SYN请求(SYN=1,seq=x);client状态变为SYN-SENT,<br>3、server收到后，发送ACK+SYN包（ACK=1,SYN=1,seq=k,ack=x+1);server发送后状态变为SYN-RCVD<br>4、client收到后，发送ACK包(ACK=1，seq=x+1,ack=k+1);client状态变为ESTABLISHED,server收到后状态变为ESTABLISEED</p>
+</blockquote>
+<blockquote>
+<p>4次挥手<br>1、client和server刚开始都处于ESTABLISED的状态，client首先进行关闭，发送FIN报文(FIN=1,seq=u);client进入FIN-WAIT-1状态<br>2、server收到后，发送ACK(ACK=1,ack=u+1,seq=k)；server状态变为CLOSE-WAIT状态，等待应用程序进行关闭，client进入FIN-WAIT-2状态<br>3、当server也没有数据进行发送的时候，发送FIN报文(FIN=1,seq=w,ack=u+1);server进入LAST-ACK状态<br>4、client收到server的FIN后，发送ACK(ACK=1,seq=u+1,ack=w+1)；client进入TIME-WAIT状态，server收到最后的ACK后，进入CLOSED，client等待2MSL后，也进行CLOSED,此时结束。</p>
+</blockquote>
+<p>4、为什么是3次握手，2次是否可以？为什么client收到server的确认后不能直接建立连接呢，还要再发送一次确认？</p>
+<blockquote>
+<p>是为了防止已经失效的请求又送到了server端，导致产生错误。<br>具体是这样的：client发送了一个请求连接报文，但是由于网络延迟，server暂时没有收到，client于是又发送了一个连接请求，和server建立连接并完成通信后释放连接，但此时server又收到了之前的连接请求，server认为client又要建立连接，于是发送确认请求，并要求建立连接，如果此时没有client的再次确认，则server会一直等待client发送数据，造成资源的浪费，由于没有client的确认，所以server就认为不是要建立连接，释放资源。</p>
+</blockquote>
+
           
         
       
