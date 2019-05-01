@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="python排序算法1、冒泡排序  每次相邻两个比较  1234567def BubleSort(rlist):    len_ = len(rlist)    for i in range(len_):        for j in range(0,len_-i-1):            if rlist[j] &amp;gt;rlist[j+1]:                rlist[j]">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-01T05:23:56.249Z">
+<meta property="og:updated_time" content="2019-05-01T05:25:12.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python排序">
 <meta name="twitter:description" content="python排序算法1、冒泡排序  每次相邻两个比较  1234567def BubleSort(rlist):    len_ = len(rlist)    for i in range(len_):        for j in range(0,len_-i-1):            if rlist[j] &amp;gt;rlist[j+1]:                rlist[j]">
@@ -319,7 +319,7 @@
 <p>递归</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def QuickSort(rlist):</span><br><span class="line">    len_ = len(rlist)</span><br><span class="line">    if len_ &lt; 2:</span><br><span class="line">        return rlist</span><br><span class="line">    else:</span><br><span class="line">        p_min = rlist[0]</span><br><span class="line">        r_less = [i for i in rlist[1:] if i &lt;= p_min]</span><br><span class="line">        r_great = [j for j in rlist[1:] if j &gt; p_min]</span><br><span class="line">        return QuickSort(r_less) + [p_min] + QuickSort(r_great)</span><br></pre></td></tr></table></figure>
-<p>5、对排序<br>6、希尔排序</p>
+<p>5、堆排序<br>6、希尔排序</p>
 
       
     </div>
