@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yutong-it">
 <meta property="og:description" content="mac os1、由于sshfs依赖于fuse所以需要下载fuse  https://github.com/osxfuse/osxfuse/releases  2、安装sshfs  https://github.com/osxfuse/sshfs/releases  3、挂载即可  sshfs -o reconnect -o password_stdin [remote-user]@[remote_">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-17T02:41:45.603Z">
+<meta property="og:updated_time" content="2019-06-17T02:44:23.917Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac os&#x2F;linux 使用sshfs挂载远程服务器的目录">
 <meta name="twitter:description" content="mac os1、由于sshfs依赖于fuse所以需要下载fuse  https://github.com/osxfuse/osxfuse/releases  2、安装sshfs  https://github.com/osxfuse/sshfs/releases  3、挂载即可  sshfs -o reconnect -o password_stdin [remote-user]@[remote_">
@@ -309,7 +309,7 @@
 </blockquote>
 <p>3、挂载即可</p>
 <blockquote>
-<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt</p>
+<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt<br>sshfs 用户名@远程主机IP:远程主机路径 本地挂载点</p>
 </blockquote>
 <p><strong>linux</strong><br>centos<br>1、安装fuse和sshfs</p>
 <blockquote>
@@ -317,7 +317,7 @@
 </blockquote>
 <p>2、挂载</p>
 <blockquote>
-<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt</p>
+<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt<br>sshfs 用户名@远程主机IP:远程主机路径 本地挂载点</p>
 </blockquote>
 <p>报错：<br>fuse: failed to exec fusermount: Permission denied<br>解决：</p>
 <blockquote>

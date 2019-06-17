@@ -310,7 +310,7 @@
 </blockquote>
 <p>3、挂载即可</p>
 <blockquote>
-<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt</p>
+<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt<br>sshfs 用户名@远程主机IP:远程主机路径 本地挂载点</p>
 </blockquote>
 <p><strong>linux</strong><br>centos<br>1、安装fuse和sshfs</p>
 <blockquote>
@@ -318,7 +318,7 @@
 </blockquote>
 <p>2、挂载</p>
 <blockquote>
-<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt</p>
+<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt<br>sshfs 用户名@远程主机IP:远程主机路径 本地挂载点</p>
 </blockquote>
 <p>报错：<br>fuse: failed to exec fusermount: Permission denied<br>解决：</p>
 <blockquote>
