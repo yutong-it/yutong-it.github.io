@@ -323,11 +323,11 @@
 <p>有一种情况是出现网络分区的时候<br>A  B | C D E<br>以上5个节点，A和B 可以通信，C、D、E可以通信<br>A和B会election timeout后term会一直增加，因为一直没有收到heartbeat，而C、D、E会顺利选出leader，并且可以对外提供服务，但当某时刻，网络又通了，此时由于A和B的term比C、D、E的大，此时会选A或B为leader，之前commit的log就会有问题，所以raft对此有一个优化，就是在选举之前，会进入preVote，提前和集群中的大多数进行一次通信，询问下是否可以选举，如果其他节点有leader或是收不到请求，是不会同意进行选举的，这时的term就不会一直增加</p>
 </blockquote>
 <ul>
-<li>log复制<blockquote>
+<li>log复制</li>
+</ul>
+<blockquote>
 <p>client每次进行操作都是经过leader，如果发送给follower，也会返回leader，让去请求leader；当leader收到请求后，首先更新自己的日志，然后发送append Entries到其他节点，如果大多数都成功了，则发送commit，表示已经commited，收到确认后，然后返回给客户端，并更新状态机（我理解为db）</p>
 </blockquote>
-</li>
-</ul>
 <blockquote>
 <p>如果出现上面提到的网络分区，A之前是leader，当收到更新请求时，并不能commit，最后会维持uncommitted状态；CDE三台由于election timeout发生选举并成功选出leader提供服务，并commit了log；等网络恢复的时候，会将A和B没有commit的日志覆盖</p>
 </blockquote>
