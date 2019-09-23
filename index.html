@@ -229,6 +229,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/python-执行shell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yutong-it">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/python-执行shell/" itemprop="url">python 执行shell</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T22:18:35+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>python执行shell</p>
+<blockquote>
+<p>1、os.system(cmd)</p>
+</blockquote>
+<p>只有返回值，没有命令返回值，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">result = os.system(&apos;ls -l&apos;)</span><br><span class="line">print(result) #没有ls -l的结果，只有$?的结果</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>2、os.popen(cmd)</p>
+</blockquote>
+<p>只有cmd执行的结果，无$?结果，并且如果想要得到cmd的结果需要使用read或()readlines()方法，因为返回的是file类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">result = os.popen(&apos;ls -l&apos;)</span><br><span class="line">print(result.readlines())</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>3、commands.getstatusouput(cmd)</p>
+</blockquote>
+<p>既有cmd的返回值，又有$?的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import commands</span><br><span class="line">output, result = commands.getstatusoutput(&apos;ls -l&apos;)</span><br><span class="line">print(output)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>4、subprocess.Popen(cmd)</p>
+</blockquote>
+<p>功能强大，但是需要学习才会用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">r = subprocess.Popen(&apos;ls -l&apos;, shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE)</span><br><span class="line">result = r.wait()</span><br><span class="line">print(result)  # $?</span><br><span class="line">print(r.stdout.read())  # output</span><br><span class="line">print(r.stderr.read())  # err output</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/raft协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1447,148 +1583,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/lvs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yutong-it">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/30/lvs/" itemprop="url">lvs</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T14:21:33+08:00">
-                2019-04-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>lvs</p>
-<ol>
-<li>lvs种类<blockquote>
-<p>lvs可以在tcp/ip的4层和7层实现负载均衡，在4层通过ip+端口实现，有3种模式，分别为NAT、tunning隧道、DR模式；在7层应用层，主要是http请求，可以使用nginx的upstream实现负载均衡</p>
-</blockquote>
-</li>
-<li>NAT模式<blockquote>
-<p>所有的请求都会经过lvs集群，包括请求和相应，client通过访问vip来访问后端的RS，而后端的RS收到的请求也都是lvs集群的ip，无法获取到真实的client的ip（安装了toa的除外），vip可以是外网的ip也可以是内网的ip</p>
-</blockquote>
-</li>
-<li>tunning模式<blockquote>
-<p>隧道模式，顾名思义就是在vip和RS之间建立一个隧道，lvs通过封装新的目的地址和端口和原来的源ip和端口，client过来的请求需要经过lvs的集群，但是响应就不经过lvs集群了，直接通过RS返回给client，但是需要RS有外网的ip，如果要通过外网访问</p>
-</blockquote>
-</li>
-<li>DR模式<blockquote>
-<p>直接路由模式，即所有的RS共用一个Vip，通过这个vip来接受请求，返回的响应由于公用vip,所以客户端无感知，缺点：lvs集群和Rs在同一个网段内</p>
-</blockquote>
-</li>
-<li>lvs的调度算法<blockquote>
-<p>分为：轮询、加权、ip_hash、权重轮询</p>
-</blockquote>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1639,7 +1633,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
