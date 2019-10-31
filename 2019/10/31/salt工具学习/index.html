@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yutong-it">
 <meta property="og:description" content="1、salt-key常用命令  master上证书查询1`salt-key -L` 查看没有接受的认证1salt-key -l pre 接收所有的认证1salt-key -A 接收某个认证或某些12salt-key -a host_keysalt-key -a r*.cldisk1.*.net 删除所有认证1salt-key -D 删除某个认证或某些12salt-key -d host_keys">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-31T09:49:26.024Z">
+<meta property="og:updated_time" content="2019-10-31T09:54:20.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="salt工具学习">
 <meta name="twitter:description" content="1、salt-key常用命令  master上证书查询1`salt-key -L` 查看没有接受的认证1salt-key -l pre 接收所有的认证1salt-key -A 接收某个认证或某些12salt-key -a host_keysalt-key -a r*.cldisk1.*.net 删除所有认证1salt-key -D 删除某个认证或某些12salt-key -d host_keys">
@@ -300,7 +300,7 @@
 
       
         <blockquote>
-<p>1、salt-key常用命令</p>
+<p><strong>1、salt-key常用命令</strong></p>
 </blockquote>
 <p>master上证书查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`salt-key -L`</span><br></pre></td></tr></table></figure></p>
 <p>查看没有接受的认证<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-key -l pre</span><br></pre></td></tr></table></figure></p>
@@ -309,23 +309,23 @@
 <p>删除所有认证<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-key -D</span><br></pre></td></tr></table></figure></p>
 <p>删除某个认证或某些<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">salt-key -d host_key</span><br><span class="line">salt-key -d *web*</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>2、远程操作命令</p>
+<p><strong>2、远程操作命令</strong></p>
 </blockquote>
 <p>命令行选项<br>–summary 显示概要信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt --summary  r0*.ccc.zzzc.qihoo.net test.ping</span><br></pre></td></tr></table></figure></p>
 <p>指定输出格式–out<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt --out=json minion-01 test.ping</span><br></pre></td></tr></table></figure></p>
 <p>目标机器匹配<br>-G grains -I pillar -N nodegroup -E 正则表达式 -L list<br>modules.func<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test.ping </span><br><span class="line">cmd.run</span><br><span class="line">cmd.run_all</span><br><span class="line">pkg.install</span><br><span class="line">pkg.version</span><br><span class="line">pkg.remove</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>3、编写modules</p>
+<p><strong>3、编写modules</strong></p>
 </blockquote>
 <p>目录在master的/srv/salt/_modules 下<br>编写cass.py<br>里面定义pwd()函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def pwd():</span><br><span class="line">        &apos;&apos;&apos;</span><br><span class="line">        Get pwd</span><br><span class="line"></span><br><span class="line">        CLI Example:</span><br><span class="line"></span><br><span class="line">        .. code-block:: bash</span><br><span class="line"></span><br><span class="line">            salt &apos;*&apos; cass.pwd</span><br><span class="line">        &apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">        cmd = &apos;pwd&apos;</span><br><span class="line">        r = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)</span><br><span class="line">        result = r.wait()</span><br><span class="line">        #r = __salt__[&apos;cmd.run_stdout&apos;](cmd)</span><br><span class="line">	#res = []</span><br><span class="line">	#for line in r.splitlines():</span><br><span class="line">	#	res.append(line)</span><br><span class="line">	#return res</span><br><span class="line">        if result == 0:</span><br><span class="line">		return r.stdout.read()</span><br><span class="line">        else:</span><br><span class="line">                return False</span><br></pre></td></tr></table></figure></p>
 <p>master上执行同步命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt &apos;*&apos; saltutil.sync_modules</span><br></pre></td></tr></table></figure></p>
 <p>则同步到minion的cache下<br>/var/cache/salt/minion/extmods/modules<br>在master上就可以调用modules<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt ‘*’ cass.pwd</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>4、同步文件</p>
+<p><strong>4、同步文件</strong></p>
 </blockquote>
 <p>文件：file.managed<br>目录：file.directory<br>文件夹：file.recurse</p>
 <blockquote>
-<p>5、设置grains</p>
+<p><strong>5、设置grains</strong></p>
 </blockquote>
 <p>两种方式</p>
 <p>1)通过grains_modules,在master上mkdir /srv/salt/_grains<br>vim my_modules.py<br>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt &apos;*&apos; saltutil.sync_all</span><br></pre></td></tr></table></figure></p>
@@ -334,7 +334,7 @@
 <p>2)在minion端配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim  /etc/salt/minion.d/grain.conf  #进行添加</span><br></pre></td></tr></table></figure></p>
 <p>重启minion<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service salt-minion restart </span><br><span class="line">#or centos 7</span><br><span class="line">systemctl restart salt-minion.service</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>6、设置pillar</p>
+<p><strong>6、设置pillar</strong></p>
 </blockquote>
 <p>1）、在master新建目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /srv/pillar</span><br></pre></td></tr></table></figure></p>
 <p>所有的pillar都放到这个目录下<br>2）、编写测试pillar<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /srv/pillar/test</span><br></pre></td></tr></table></figure></p>
@@ -343,7 +343,7 @@
 <p>4）、查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt &apos;*’ pillar.items</span><br></pre></td></tr></table></figure></p>
 <p>5）、使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- source: salt://cldisk4_zzzc/&#123;&#123;pillar[&apos;roles&apos;]&#125;&#125;/conf/features.low.yaml</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>7、执行highstate<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt &apos;*&apos; state.highstate</span><br></pre></td></tr></table></figure></p>
+<p><strong>7、执行highstate</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt ‘*’ state.highstate</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p><strong>推荐一个管理salt的界面化的管理端</strong><br><a href="https://github.com/yueyongyue/saltshaker" target="_blank" rel="noopener">https://github.com/yueyongyue/saltshaker</a></p>
 
