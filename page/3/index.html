@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="yutong-it">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="yutong-it">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -115,7 +115,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/2/">
+  <link rel="canonical" href="http://yoursite.com/page/3/">
 
 
 
@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/容易被别人问到的awk和sort使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/python-list-切片总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/12/容易被别人问到的awk和sort使用/" itemprop="url">容易被别人问到的awk和sort使用</a></h1>
+                <a class="post-title-link" href="/2019/11/11/python-list-切片总结/" itemprop="url">python list 切片总结</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T20:30:52+08:00">
-                2019-11-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T20:48:04+08:00">
+                2019-11-11
               </time>
             
 
@@ -300,17 +300,17 @@
       
         
           
-            <p>1、awk<br>1）给出日志内容statistics.log，要求过滤出在时间段“2019-11-12 15:00”到“2019-11-12 15:10”期间，第3列和倒数第2列中最多的请求方法和对应的ip,然后按照倒序输出，即哪些cip访问的最多，且要知道他的请求方法op是什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2019-11-12 14:39:59,989 op=QstoreMultiRead ks=36106 cf=datum k=03053a cn=bptype digest= ts=1571382872 tm=58 total=1 mark=157362 level=QUORUM cip=10.1.1.1 ret=0</span><br></pre></td></tr></table></figure></p>
-<p>命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &apos;2019-11-12 15:0&apos; statistics.log | awk &apos;&#123;sum[$3&quot;_&quot;$(NF-1)]++&#125;END&#123;for (s in sum) print s&quot; &quot;sum[s]&#125;&apos;  |sort -nr -k 2</span><br></pre></td></tr></table></figure></p>
-<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">op=QstoreMultiRead_cip=10.173.125.73 4034</span><br><span class="line">op=QstoreMultiRead_cip=10.173.125.72 3686</span><br><span class="line">op=QstoreMultiRead_cip=10.173.125.71 3431</span><br><span class="line">op=QstoreMultiRead_cip=10.173.125.67 3087</span><br><span class="line">op=QstoreMultiRead_cip=10.173.125.70 1685</span><br><span class="line">op=QstoreMultiRead_cip=10.173.125.68 1662</span><br><span class="line">op=QstoreMultiWrite_cip=10.173.125.73 1030</span><br><span class="line">op=QstoreMultiWrite_cip=10.173.125.67 1018</span><br><span class="line">op=QstoreMultiWrite_cip=10.173.125.71 979</span><br></pre></td></tr></table></figure></p>
-<p>2）给出如下日志input.txt，第2列为电话号码，倒数第3列为入流量，倒数第2列为出流量，要求输出电话号码，入流量，出流量，总流量(入流量和出流量的和)，并按照总流量倒序输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1363157985066   13726230503 00-FD-07-A4-72-B8:CMCC  120.196.100.82  24  27  2481    24681   200</span><br><span class="line">1363157995052   13826544101 5C-0E-8B-C7-F1-E0:CMCC  120.197.40.4    4   0   264 0   200</span><br><span class="line">1363157991076   13926435656 20-10-7A-28-CC-0A:CMCC  120.196.100.99  2   4   132 1512    200</span><br><span class="line">1363154400022   13926251106 5C-0E-8B-8B-B1-50:CMCC  120.197.40.4    4   0   240 0   200</span><br><span class="line">1363157985066   13726230503 00-FD-07-A4-72-B8:CMCC  120.196.100.82  24  27  2481    24681   200</span><br><span class="line">1363157995052   13826544101 5C-0E-8B-C7-F1-E0:CMCC  120.197.40.4    4   0   264 0   200</span><br><span class="line">1363157991076   13926435656 20-10-7A-28-CC-0A:CMCC  120.196.100.99  2   4   132 1512    200</span><br><span class="line">1363154400022   13926251106 5C-0E-8B-8B-B1-50:CMCC  120.197.40.4    4   0   240 0   200</span><br></pre></td></tr></table></figure>
-<p>命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat input.txt  |awk &apos;&#123;inpt[$2]+=$(NF-2);outp[$2]+=$(NF-1);sum[$2]+=$(NF-1)+$(NF-2)&#125;END&#123;for(s in sum) print s,inpt[s],outp[s],sum[s]&#125;&apos;  |sort -nr -k 4</span><br></pre></td></tr></table></figure></p>
-<p>结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">13726230503 4962 49362 54324</span><br><span class="line">13926435656 264 3024 3288</span><br><span class="line">13826544101 528 0 528</span><br><span class="line">13926251106 480 0 480</span><br></pre></td></tr></table></figure></p>
-<p>2、sort排序<br>1）有如下文件a.txt，要求按照第2列以数字排序，如果第2列相同则按照第1列按照字母排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a 1 2 3</span><br><span class="line">b 1 5 6</span><br><span class="line">c 2 3 2</span><br></pre></td></tr></table></figure></p>
-<p>命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat abc.txt  |sort  -k 2nr  -k 1,1</span><br></pre></td></tr></table></figure></p>
-<p>结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c 2 3 2</span><br><span class="line">a 1 2 3</span><br><span class="line">b 1 5 6</span><br></pre></td></tr></table></figure></p>
-
+            <blockquote>
+<p>list切片总共分为3部分：<br>start-index、end-index、step</p>
+</blockquote>
+<p>以 lst=[0,1,2,3,4,5,6,7,8,9]为例<br>| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 正向索引<br>| -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 |逆向索引</p>
+<blockquote>
+<p>start-index表示起始位置（包含）<br>end-index表示结束位置（不包含）<br>step表示间隔和方向，正数表示从左向右，负数表示从右向左</p>
+</blockquote>
+<p>step省略表示正向，从左向右<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a[:] 或 a[::]</span><br><span class="line">[0,1,2,3,4,5,6,7,8,9]</span><br><span class="line"></span><br><span class="line">a[1:6]</span><br><span class="line">[1,2,3,4,5]</span><br></pre></td></tr></table></figure></p>
+<p>step为负数，表示从右向左<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a[::-1]</span><br><span class="line">[9,8,7,6,5,4,3,2,1,0]</span><br><span class="line">#逆序输出，注意和a[:-1]区别，a[:-1]中的-1表示的结束位置，且step表示的是正向，所以是没有最后一个元素的正向列表[0,1,2,3,4,5,6,7,8]</span><br></pre></td></tr></table></figure></p>
+<p>一些易混切片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a[:-1:-1] #输出为空列表</span><br><span class="line">[]</span><br><span class="line">#step为-1,所以为从右向左，start为空，表示从-1开始，即从最右边开始到-1（不包含），所以为空</span><br><span class="line"></span><br><span class="line">同样</span><br><span class="line">a[-1:6]  #输出为空列表</span><br><span class="line">[]</span><br><span class="line"></span><br><span class="line">a[:-6:-1]</span><br><span class="line">[9,8,7,6,5]</span><br><span class="line"></span><br><span class="line">a[-1:6]</span><br><span class="line">[]</span><br><span class="line"></span><br><span class="line">a[-1:6:-1]</span><br><span class="line">[9,8,7]</span><br></pre></td></tr></table></figure></p>
+<h1 id="最重要的是要记住：step为负数，就要从右向左遍历"><a href="#最重要的是要记住：step为负数，就要从右向左遍历" class="headerlink" title="**最重要的是要记住：step为负数，就要从右向左遍历"></a><em>**</em>最重要的是要记住：step为负数，就要从右向左遍历</h1>
           
         
       
@@ -349,7 +349,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
