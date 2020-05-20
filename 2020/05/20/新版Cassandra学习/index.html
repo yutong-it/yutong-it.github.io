@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yutong-it">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="官方文档：https://cassandra.apache.org/doc/latest/getting_started/installing.htmlsdk文档https://github.com/datastax/python-driversdk说明文档https://docs.datastax.com/en/developer/python-driver/3.23/installation/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="新版Cassandra学习">
+<meta property="og:url" content="http://yoursite.com/2020/05/20/新版Cassandra学习/index.html">
 <meta property="og:site_name" content="yutong-it">
+<meta property="og:description" content="官方文档：https://cassandra.apache.org/doc/latest/getting_started/installing.htmlsdk文档https://github.com/datastax/python-driversdk说明文档https://docs.datastax.com/en/developer/python-driver/3.23/installation/">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-20T07:07:41.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yutong-it">
+<meta name="twitter:title" content="新版Cassandra学习">
+<meta name="twitter:description" content="官方文档：https://cassandra.apache.org/doc/latest/getting_started/installing.htmlsdk文档https://github.com/datastax/python-driversdk说明文档https://docs.datastax.com/en/developer/python-driver/3.23/installation/">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/20/新版Cassandra学习/">
 
 
 
 
 
-  <title>yutong-it</title>
+  <title>新版Cassandra学习 | yutong-it</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/20/新版Cassandra学习/" itemprop="url">新版Cassandra学习</a></h1>
+          <h1 class="post-title" itemprop="name headline">新版Cassandra学习</h1>
         
 
         <div class="post-meta">
@@ -298,9 +299,7 @@
       
 
       
-        
-          
-            <p>官方文档：<br><code>https://cassandra.apache.org/doc/latest/getting_started/installing.html</code><br>sdk文档<br><code>https://github.com/datastax/python-driver</code><br>sdk说明文档<br><code>https://docs.datastax.com/en/developer/python-driver/3.23/installation/</code></p>
+        <p>官方文档：<br><code>https://cassandra.apache.org/doc/latest/getting_started/installing.html</code><br>sdk文档<br><code>https://github.com/datastax/python-driver</code><br>sdk说明文档<br><code>https://docs.datastax.com/en/developer/python-driver/3.23/installation/</code></p>
 <p>1、下载地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://mirrors.tuna.tsinghua.edu.cn/apache/cassandra/</span><br></pre></td></tr></table></figure></p>
 <p>找到对应的bin版本进行下载，如果是src文件，则启动不起来，报找不到class的错误<br>2、安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、首先安装java</span><br><span class="line">2、解压Cassandra的bin压缩文件</span><br><span class="line">3、修改Cassandra.yaml文件，将集群名称、data_dir、log_dir、seed节点、listen_address和rpc_address修改下，然后启动</span><br></pre></td></tr></table></figure></p>
 <p>需要非root用户启动，如果使用root启动，需要加-R参数<br>4、nodetool命令<br>1、查看节点状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodetool status</span><br></pre></td></tr></table></figure></p>
@@ -316,8 +315,6 @@
 </li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -334,12 +331,28 @@
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/02/无序数组中查找第k大的元素（要求时间复杂度O-n-）/" rel="next" title="无序数组中查找第k大的元素（要求时间复杂度O(n)）">
+                <i class="fa fa-chevron-left"></i> 无序数组中查找第k大的元素（要求时间复杂度O(n)）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -349,14 +362,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -364,6 +374,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -560,6 +574,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

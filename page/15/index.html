@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/lvs/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/01/python排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/30/lvs/" itemprop="url">lvs</a></h1>
+                <a class="post-title-link" href="/2019/05/01/python排序/" itemprop="url">python排序</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T14:21:33+08:00">
-                2019-04-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-01T13:21:46+08:00">
+                2019-05-01
               </time>
             
 
@@ -300,29 +300,32 @@
       
         
           
-            <p>lvs</p>
-<ol>
-<li>lvs种类<blockquote>
-<p>lvs可以在tcp/ip的4层和7层实现负载均衡，在4层通过ip+端口实现，有3种模式，分别为NAT、tunning隧道、DR模式；在7层应用层，主要是http请求，可以使用nginx的upstream实现负载均衡</p>
+            <p>python排序算法<br>1、冒泡排序</p>
+<blockquote>
+<p>每次相邻两个比较</p>
 </blockquote>
-</li>
-<li>NAT模式<blockquote>
-<p>所有的请求都会经过lvs集群，包括请求和相应，client通过访问vip来访问后端的RS，而后端的RS收到的请求也都是lvs集群的ip，无法获取到真实的client的ip（安装了toa的除外），vip可以是外网的ip也可以是内网的ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def BubleSort(rlist):</span><br><span class="line">    len_ = len(rlist)</span><br><span class="line">    for i in range(len_):</span><br><span class="line">        for j in range(0,len_-i-1):</span><br><span class="line">            if rlist[j] &gt;rlist[j+1]:</span><br><span class="line">                rlist[j], rlist[j+1] = rlist[j+1], rlist[j]</span><br><span class="line">    return rlist</span><br></pre></td></tr></table></figure>
+<p>2、选择排序</p>
+<blockquote>
+<p>每次在剩下未排序的里面选出最小（大）的</p>
 </blockquote>
-</li>
-<li>tunning模式<blockquote>
-<p>隧道模式，顾名思义就是在vip和RS之间建立一个隧道，lvs通过封装新的目的地址和端口和原来的源ip和端口，client过来的请求需要经过lvs的集群，但是响应就不经过lvs集群了，直接通过RS返回给client，但是需要RS有外网的ip，如果要通过外网访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def SelectSort(rlist):</span><br><span class="line">    len_ = len(rlist)</span><br><span class="line">    for i in range(len_-1):</span><br><span class="line">        p_min = i</span><br><span class="line">        for j in range(i+1, len_):</span><br><span class="line">            if rlist[j] &lt; rlist[p_min]:</span><br><span class="line">                p_min = j</span><br><span class="line">        rlist[p_min], rlist[i] = rlist[i], rlist[p_min]</span><br><span class="line">    return rlist</span><br></pre></td></tr></table></figure>
+<p>3、插入排序</p>
+<blockquote>
+<p>每次和之前排好序的依次进行比较</p>
 </blockquote>
-</li>
-<li>DR模式<blockquote>
-<p>直接路由模式，即所有的RS共用一个Vip，通过这个vip来接受请求，返回的响应由于公用vip,所以客户端无感知，缺点：lvs集群和Rs在同一个网段内</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def InserSort(rlist):</span><br><span class="line">    len_ = len(rlist)</span><br><span class="line">    for i in range(1, len_):</span><br><span class="line">        for j in range(0, i):</span><br><span class="line">            if rlist[j] &gt;= rlist[i]:</span><br><span class="line">                rlist.insert(j, rlist[i])</span><br><span class="line">                rlist.pop(i+1)</span><br><span class="line">                break</span><br><span class="line">    return rlist</span><br></pre></td></tr></table></figure>
+<p>4、快速排序</p>
+<blockquote>
+<p>递归</p>
 </blockquote>
-</li>
-<li>lvs的调度算法<blockquote>
-<p>分为：轮询、加权、ip_hash、权重轮询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def QuickSort(rlist):</span><br><span class="line">    len_ = len(rlist)</span><br><span class="line">    if len_ &lt; 2:</span><br><span class="line">        return rlist</span><br><span class="line">    else:</span><br><span class="line">        p_min = rlist[0]</span><br><span class="line">        r_less = [i for i in rlist[1:] if i &lt;= p_min]</span><br><span class="line">        r_great = [j for j in rlist[1:] if j &gt; p_min]</span><br><span class="line">        return QuickSort(r_less) + [p_min] + QuickSort(r_great)</span><br></pre></td></tr></table></figure>
+<p>5、归并排序</p>
+<blockquote>
+<p>递归合并</p>
 </blockquote>
-</li>
-</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">def merge(arr1,arr2):</span><br><span class="line">        r_sort = []</span><br><span class="line">        while (len(arr1)&gt;0 and len(arr2)&gt;0):</span><br><span class="line">                if arr1[0] &gt;arr2[0]:</span><br><span class="line">                        r_sort.append(arr2[0])</span><br><span class="line">                        del arr2[0]</span><br><span class="line">                else:</span><br><span class="line">                        r_sort.append(arr1[0])</span><br><span class="line">                        del arr1[0]</span><br><span class="line">        if len(arr1):</span><br><span class="line">                r_sort += arr1</span><br><span class="line">        else:</span><br><span class="line">                r_sort += arr2</span><br><span class="line">        return r_sort</span><br><span class="line">def merge_sort(arr):</span><br><span class="line">        if len(arr) &lt;= 1:</span><br><span class="line">                return arr</span><br><span class="line">        midle = len(arr)/2</span><br><span class="line">        left = merge_sort(arr[:midle])</span><br><span class="line">        right = merge_sort(arr[midle:])</span><br><span class="line">        return merge(left,right)</span><br><span class="line"></span><br><span class="line">list_a = [1,3,6,4,7,2,9]</span><br><span class="line">print(&apos;raw :&apos; + str(list_a))</span><br><span class="line">print(&apos;sort:&apos;+ str(merge_sort(list_a)))</span><br></pre></td></tr></table></figure>
+<p>6、堆排序<br>7、希尔排序</p>
 
           
         
@@ -362,7 +365,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -408,7 +411,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -449,7 +452,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
