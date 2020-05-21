@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/20/新版Cassandra学习/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/21/ntp反射攻击/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/20/新版Cassandra学习/" itemprop="url">新版Cassandra学习</a></h1>
+                <a class="post-title-link" href="/2020/05/21/ntp反射攻击/" itemprop="url">ntp反射攻击</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T15:07:10+08:00">
-                2020-05-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-21T18:22:51+08:00">
+                2020-05-21
               </time>
             
 
@@ -300,22 +300,14 @@
       
         
           
-            <p>官方文档：<br><code>https://cassandra.apache.org/doc/latest/getting_started/installing.html</code><br>sdk文档<br><code>https://github.com/datastax/python-driver</code><br>sdk说明文档<br><code>https://docs.datastax.com/en/developer/python-driver/3.23/installation/</code></p>
-<p><strong>1、下载地址：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://mirrors.tuna.tsinghua.edu.cn/apache/cassandra/</span><br></pre></td></tr></table></figure></p>
-<p>找到对应的bin版本进行下载，如果是src文件，则启动不起来，报找不到class的错误<br><strong>2、安装</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、首先安装java</span><br><span class="line">2、解压Cassandra的bin压缩文件</span><br><span class="line">3、修改Cassandra.yaml文件，将集群名称、data_dir、log_dir、seed节点、listen_address和rpc_address修改下，然后启动</span><br></pre></td></tr></table></figure></p>
-<p>需要非root用户启动，如果使用root启动，需要加-R参数<br><strong>3、nodetool命令</strong><br>1)、查看节点状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodetool status</span><br></pre></td></tr></table></figure></p>
-<p>2)、查看ring信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodetool ring</span><br></pre></td></tr></table></figure></p>
-<p><strong>4、cql命令</strong><br>1)、进入cql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cqlsh [host] [port]</span><br></pre></td></tr></table></figure></p>
-<p>2)、查看ks<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc keyspaces</span><br></pre></td></tr></table></figure></p>
-<p>3)、查看表结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc keyspace table</span><br></pre></td></tr></table></figure></p>
-<p>4)、查询数据<br>以alarm的keyspace为例，stu表为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use alarm;</span><br><span class="line">select count(*) from stu;</span><br></pre></td></tr></table></figure></p>
-<p><strong>5、通过sdk连接Cassandra</strong><br>使用python连接并写入数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install cassandra-driver</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>直接写</li>
-<li>batch写<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from cassandra.cluster import Cluster</span><br><span class="line">cluster = Cluster([&apos;10.206.230.149&apos;])</span><br><span class="line">session = cluster.connect(&apos;alarm&apos;)</span><br><span class="line">rows = session.execute(&apos;select * from stu&apos;)</span><br><span class="line">#print rows</span><br><span class="line">#print type(rows)</span><br><span class="line">#for i in rows:</span><br><span class="line">#    print i</span><br><span class="line">def single_insert():</span><br><span class="line">    for i in range(4,100000):</span><br><span class="line">        session.execute(</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        INSERT INTO stu (stu_id,stu_name,stu_age)</span><br><span class="line">        VALUES (%s, %s, %s)</span><br><span class="line">        &quot;&quot;&quot;,</span><br><span class="line">        (i,&apos;tianjin_&apos;+ str(i),19)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def batch_insert():</span><br><span class="line">    sql = &quot;BEGIN BATCH\n&quot;</span><br><span class="line">    i = 0</span><br><span class="line">    with open(&apos;./a.csv&apos;,&apos;r&apos;) as f:</span><br><span class="line">        while True:</span><br><span class="line">            line = f.readline().strip()</span><br><span class="line">            if line == &apos;&apos; or line == np.nan :</span><br><span class="line">                if( sql != &apos;BEGIN BATCH\n&apos; ):</span><br><span class="line">                    sql += &apos;APPLY BATCH;&apos;</span><br><span class="line">                    session.execute(sql)</span><br><span class="line">                    break</span><br><span class="line">            ll = line.split(&quot;,&quot;)</span><br><span class="line">            sql += &apos;INSERT INTO stu(stu_id,stu_name,stu_age) VALUES (&apos; +ll[2]+ &apos;,&apos;+&apos;\&apos;&apos;+ll[1]+&apos;\&apos;&apos;+&apos;,&apos; + ll[2] +&apos;);\n&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            i +=1</span><br><span class="line">            if i &gt;300:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                sql += &apos;APPLY BATCH;&apos;</span><br><span class="line">                print sql</span><br><span class="line">                session.execute(sql)</span><br><span class="line">                sql = &quot;BEGIN BATCH\n&quot;</span><br><span class="line">                i=0</span><br><span class="line">import time</span><br><span class="line">begin = time.time()</span><br><span class="line">batch_insert()</span><br><span class="line">end = time.time()</span><br><span class="line">print end-begin</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可以看下别人的blog:<a href="https://www.dazhuanlan.com/2019/10/07/5d9a42ddacb0f/?__cf_chl_jschl_tk__=59252646304b23a251b334d5c1e31c159f616c0d-1589954146-0-AdQOiXwxxIhv2UEDhJcT2YZc76dSYQjZn3uHHijjlVlneMmZv8OsXoL847kmvGlBw3cViOisJ_IqrHGJKWiIZ6TMvVSiIOm8JB_qpg0dJyyhp3gSam5zchkATk6J6hY63qWVMENTqLu31uD_bZWDuIfiKUTIx2AZdh3fUxb3vrwdY641xfoDJookUmCtLf07FXZeSeYsQhTAwHGJ2TpQ-_mAysCyYbmgqpHiFr07bw3bkWjmOc2mzmmXpn8JWIX0rL1dJ-dua6Tc3BCnCwccnbVHT912Dwr0Mr9_TPOx86yoxNzON7YQftHP518UKyKXmw" target="_blank" rel="noopener">https://www.dazhuanlan.com/2019/10/07/5d9a42ddacb0f/?__cf_chl_jschl_tk__=59252646304b23a251b334d5c1e31c159f616c0d-1589954146-0-AdQOiXwxxIhv2UEDhJcT2YZc76dSYQjZn3uHHijjlVlneMmZv8OsXoL847kmvGlBw3cViOisJ_IqrHGJKWiIZ6TMvVSiIOm8JB_qpg0dJyyhp3gSam5zchkATk6J6hY63qWVMENTqLu31uD_bZWDuIfiKUTIx2AZdh3fUxb3vrwdY641xfoDJookUmCtLf07FXZeSeYsQhTAwHGJ2TpQ-_mAysCyYbmgqpHiFr07bw3bkWjmOc2mzmmXpn8JWIX0rL1dJ-dua6Tc3BCnCwccnbVHT912Dwr0Mr9_TPOx86yoxNzON7YQftHP518UKyKXmw</a></p>
+            <p>ntp反射攻击</p>
+<blockquote>
+<p>ntp是udp连接，默认端口为123,他提供了一个monlist的功能，本来是用来做监控的，但是如果被其他人利用就会被当做攻击工具<br>monlist 会返回最近600个同步时间的client的服务器的ip并返回给请求端，所以如果伪造请求端，请求端就会收到大量请求</p>
+</blockquote>
+<p>查看命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdc -n -c monlist 10.173.90.224</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@streamrelay46 nginx]# ntpdc -n -c monlist 10.173.90.224</span><br><span class="line">remote address          port local address      count m ver rstr avgint  lstint</span><br><span class="line">===============================================================================</span><br><span class="line">101.198.191.171          123 10.173.90.224          2 4 4    190     39      11</span><br><span class="line">211.151.122.231          123 10.173.90.224          2 4 4    190     39      15</span><br><span class="line">10.146.66.78           57566 10.173.90.224          4 3 4    190      8      29</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>1、关闭现有NTP服务的monlist功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">restrict default kod nomodify notrap nopeer noquery</span><br><span class="line">增加noquery 来禁止</span><br></pre></td></tr></table></figure></p>
+<p>2、发送被攻击时<br>通过ACL来限制123端口发来的数据包</p>
 
           
         
@@ -355,7 +347,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -401,7 +393,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
