@@ -366,6 +366,10 @@
 <p><strong>12、获取某一个grain参数</strong></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt &apos;*&apos; grains.get fqdn</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>13、解决Salt Master报错:Minion did not return. [No response]</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、在minion端执行</span><br><span class="line">rm -rf /etc/salt/pki/minion/*</span><br><span class="line">2、在master端删除对应id的key</span><br><span class="line">或者在/etc/salt/pki/master/minions下找到文件删掉</span><br><span class="line">3、重启minion的客户端</span><br><span class="line">service salt-minion restart</span><br><span class="line">4、master端重新接受认证</span><br><span class="line">5、等一会在执行命令</span><br><span class="line">The Salt Master has cached the public key for this node, this salt minion will wait for 10 seconds before attempting to re-authenticate</span><br></pre></td></tr></table></figure>
 <p><strong>推荐一个管理salt的界面化的管理端</strong><br><a href="https://github.com/yueyongyue/saltshaker" target="_blank" rel="noopener">https://github.com/yueyongyue/saltshaker</a></p>
 
           
