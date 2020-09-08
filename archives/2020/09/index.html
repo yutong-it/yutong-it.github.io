@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="yutong-it">
-<meta property="og:url" content="http://yoursite.com/page/18/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2020/09/index.html">
 <meta property="og:site_name" content="yutong-it">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -115,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/18/">
+  <link rel="canonical" href="http://yoursite.com/archives/2020/09/">
 
 
 
 
 
-  <title>yutong-it</title>
+  <title>归档 | yutong-it</title>
   
 
 
@@ -140,8 +140,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,156 +213,72 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
-    
+
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
+
+      <span class="archive-page-counter">
+        
+        
+        
+          
+        
+        嗯..! 目前共计 20 篇日志。 继续努力。
+      </span>
+
       
 
-  
+        
+        
+        
 
-  
-  
-  
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2020">2020</h1>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/lvs/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yutbupt@163.com">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yutong-it">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/30/lvs/" itemprop="url">lvs</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2020/09/08/centos-做软raid0/" itemprop="url">
               
-                <span class="post-meta-item-text">发表于</span>
+                <span itemprop="name">centos 做软raid0</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T14:21:33+08:00">
-                2019-04-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
+            </a>
         
-          
-            <p>lvs</p>
-<ol>
-<li>lvs种类<blockquote>
-<p>lvs可以在tcp/ip的4层和7层实现负载均衡，在4层通过ip+端口实现，有3种模式，分别为NAT、tunning隧道、DR模式；在7层应用层，主要是http请求，可以使用nginx的upstream实现负载均衡</p>
-</blockquote>
-</li>
-<li>NAT模式<blockquote>
-<p>所有的请求都会经过lvs集群，包括请求和相应，client通过访问vip来访问后端的RS，而后端的RS收到的请求也都是lvs集群的ip，无法获取到真实的client的ip（安装了toa的除外），vip可以是外网的ip也可以是内网的ip</p>
-</blockquote>
-</li>
-<li>tunning模式<blockquote>
-<p>隧道模式，顾名思义就是在vip和RS之间建立一个隧道，lvs通过封装新的目的地址和端口和原来的源ip和端口，client过来的请求需要经过lvs的集群，但是响应就不经过lvs集群了，直接通过RS返回给client，但是需要RS有外网的ip，如果要通过外网访问</p>
-</blockquote>
-</li>
-<li>DR模式<blockquote>
-<p>直接路由模式，即所有的RS共用一个Vip，通过这个vip来接受请求，返回的响应由于公用vip,所以客户端无感知，缺点：lvs集群和Rs在同一个网段内</p>
-</blockquote>
-</li>
-<li>lvs的调度算法<blockquote>
-<p>分为：轮询、加权、ip_hash、权重轮询</p>
-</blockquote>
-</li>
-</ol>
+      </h2>
 
-          
-        
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2020-09-08T16:46:16+08:00" content="2020-09-08">
+          09-08
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
       
+
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
   
   
-  </article>
-
-
-    
-  </section>
 
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
 
 

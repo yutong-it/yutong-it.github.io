@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yutong-it">
-<meta property="og:url" content="http://yoursite.com/page/18/index.html">
+<meta name="description" content="centos 磁盘做软raid0shell脚本如下：12345678910111213141516171819202122232425262728293031323334353637383940#!/bin/bash# auth: yut# func: raid0 for sd* except sdanum=`ls /dev/sd[b-z]1 |wc -l`[ $&amp;#123;num&amp;#125; -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos 做软raid0">
+<meta property="og:url" content="http://yoursite.com/2020/09/08/centos-做软raid0/index.html">
 <meta property="og:site_name" content="yutong-it">
+<meta property="og:description" content="centos 磁盘做软raid0shell脚本如下：12345678910111213141516171819202122232425262728293031323334353637383940#!/bin/bash# auth: yut# func: raid0 for sd* except sdanum=`ls /dev/sd[b-z]1 |wc -l`[ $&amp;#123;num&amp;#125; -">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-09-08T08:46:35.715Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yutong-it">
+<meta name="twitter:title" content="centos 做软raid0">
+<meta name="twitter:description" content="centos 磁盘做软raid0shell脚本如下：12345678910111213141516171819202122232425262728293031323334353637383940#!/bin/bash# auth: yut# func: raid0 for sd* except sdanum=`ls /dev/sd[b-z]1 |wc -l`[ $&amp;#123;num&amp;#125; -">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/18/">
+  <link rel="canonical" href="http://yoursite.com/2020/09/08/centos-做软raid0/">
 
 
 
 
 
-  <title>yutong-it</title>
+  <title>centos 做软raid0 | yutong-it</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -229,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/lvs/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/08/centos-做软raid0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/30/lvs/" itemprop="url">lvs</a></h1>
+          <h1 class="post-title" itemprop="name headline">centos 做软raid0</h1>
         
 
         <div class="post-meta">
@@ -260,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T14:21:33+08:00">
-                2019-04-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-08T16:46:16+08:00">
+                2020-09-08
               </time>
             
 
@@ -298,34 +299,8 @@
       
 
       
-        
-          
-            <p>lvs</p>
-<ol>
-<li>lvs种类<blockquote>
-<p>lvs可以在tcp/ip的4层和7层实现负载均衡，在4层通过ip+端口实现，有3种模式，分别为NAT、tunning隧道、DR模式；在7层应用层，主要是http请求，可以使用nginx的upstream实现负载均衡</p>
-</blockquote>
-</li>
-<li>NAT模式<blockquote>
-<p>所有的请求都会经过lvs集群，包括请求和相应，client通过访问vip来访问后端的RS，而后端的RS收到的请求也都是lvs集群的ip，无法获取到真实的client的ip（安装了toa的除外），vip可以是外网的ip也可以是内网的ip</p>
-</blockquote>
-</li>
-<li>tunning模式<blockquote>
-<p>隧道模式，顾名思义就是在vip和RS之间建立一个隧道，lvs通过封装新的目的地址和端口和原来的源ip和端口，client过来的请求需要经过lvs的集群，但是响应就不经过lvs集群了，直接通过RS返回给client，但是需要RS有外网的ip，如果要通过外网访问</p>
-</blockquote>
-</li>
-<li>DR模式<blockquote>
-<p>直接路由模式，即所有的RS共用一个Vip，通过这个vip来接受请求，返回的响应由于公用vip,所以客户端无感知，缺点：lvs集群和Rs在同一个网段内</p>
-</blockquote>
-</li>
-<li>lvs的调度算法<blockquote>
-<p>分为：轮询、加权、ip_hash、权重轮询</p>
-</blockquote>
-</li>
-</ol>
+        <p><strong>centos 磁盘做软raid0</strong><br>shell脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># auth: yut</span><br><span class="line"># func: raid0 for sd* except sda</span><br><span class="line"></span><br><span class="line">num=`ls /dev/sd[b-z]1 |wc -l`</span><br><span class="line">[ $&#123;num&#125; -gt 0 ] &amp;&amp; echo &quot;error! disk is in use&quot; &amp;&amp; exit -1</span><br><span class="line">#分区，并修改system type (Linux raid autodetect)</span><br><span class="line">cat &lt;&lt;EOF &gt;pa.sh</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">t</span><br><span class="line">fd</span><br><span class="line">p</span><br><span class="line">w</span><br><span class="line">EOF</span><br><span class="line">#对除了sda之外的磁盘做分区</span><br><span class="line">for h in `ls  /dev/sd*  |grep -v sda`</span><br><span class="line">do</span><br><span class="line">    echo $h</span><br><span class="line">    #echo -e &quot;n\np\n1\n\n\nw&quot; |fdisk $h</span><br><span class="line">    fdisk $h &lt;pa.sh</span><br><span class="line">done</span><br><span class="line">partprobe</span><br><span class="line">#做raid0</span><br><span class="line">mdadm -C /dev/md0 -ayes -l0 -n$&#123;num&#125; /dev/sd[b-z]1</span><br><span class="line">#防止配置混乱</span><br><span class="line">echo DEVICE `ls /dev/sd[b-z]1` &gt;&gt;/etc/mdadm.conf</span><br><span class="line">mdadm -Ds &gt;&gt;/etc/mdadm.conf</span><br><span class="line">cat /etc/mdadm.conf</span><br><span class="line">#格式化并挂载</span><br><span class="line">mkfs.xfs /dev/md0</span><br><span class="line">mkdir /data1</span><br><span class="line">mount /dev/md0 /data1</span><br><span class="line">df -h</span><br><span class="line">#写入fstab，开机自动挂载</span><br><span class="line">echo &apos;/dev/md0 /data1  xfs  defaults  0 0&apos; &gt;&gt;/etc/fstab</span><br></pre></td></tr></table></figure></p>
 
-          
-        
       
     </div>
     
@@ -342,12 +317,28 @@
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/21/ntp反射攻击/" rel="next" title="ntp反射攻击">
+                <i class="fa fa-chevron-left"></i> ntp反射攻击
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -357,14 +348,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -372,6 +360,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -568,6 +560,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

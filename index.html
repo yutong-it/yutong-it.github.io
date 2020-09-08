@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/21/ntp反射攻击/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/08/centos-做软raid0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/21/ntp反射攻击/" itemprop="url">ntp反射攻击</a></h1>
+                <a class="post-title-link" href="/2020/09/08/centos-做软raid0/" itemprop="url">centos 做软raid0</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-21T18:22:51+08:00">
-                2020-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-08T16:46:16+08:00">
+                2020-09-08
               </time>
             
 
@@ -300,14 +300,7 @@
       
         
           
-            <p>ntp反射攻击</p>
-<blockquote>
-<p>ntp是udp连接，默认端口为123,他提供了一个monlist的功能，本来是用来做监控的，但是如果被其他人利用就会被当做攻击工具<br>monlist 会返回最近600个同步时间的client的服务器的ip并返回给请求端，所以如果伪造请求端，请求端就会收到大量请求</p>
-</blockquote>
-<p>查看命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdc -n -c monlist 10.173.90.224</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@streamrelay46 nginx]# ntpdc -n -c monlist 10.173.90.224</span><br><span class="line">remote address          port local address      count m ver rstr avgint  lstint</span><br><span class="line">===============================================================================</span><br><span class="line">101.198.191.171          123 10.173.90.224          2 4 4    190     39      11</span><br><span class="line">211.151.122.231          123 10.173.90.224          2 4 4    190     39      15</span><br><span class="line">10.146.66.78           57566 10.173.90.224          4 3 4    190      8      29</span><br></pre></td></tr></table></figure>
-<p>解决办法：<br>1、关闭现有NTP服务的monlist功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">restrict default kod nomodify notrap nopeer noquery</span><br><span class="line">增加noquery 来禁止</span><br></pre></td></tr></table></figure></p>
-<p>2、发送被攻击时<br>通过ACL来限制123端口发来的数据包</p>
+            <p><strong>centos 磁盘做软raid0</strong><br>shell脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># auth: yut</span><br><span class="line"># func: raid0 for sd* except sda</span><br><span class="line"></span><br><span class="line">num=`ls /dev/sd[b-z]1 |wc -l`</span><br><span class="line">[ $&#123;num&#125; -gt 0 ] &amp;&amp; echo &quot;error! disk is in use&quot; &amp;&amp; exit -1</span><br><span class="line">#分区，并修改system type (Linux raid autodetect)</span><br><span class="line">cat &lt;&lt;EOF &gt;pa.sh</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">t</span><br><span class="line">fd</span><br><span class="line">p</span><br><span class="line">w</span><br><span class="line">EOF</span><br><span class="line">#对除了sda之外的磁盘做分区</span><br><span class="line">for h in `ls  /dev/sd*  |grep -v sda`</span><br><span class="line">do</span><br><span class="line">    echo $h</span><br><span class="line">    #echo -e &quot;n\np\n1\n\n\nw&quot; |fdisk $h</span><br><span class="line">    fdisk $h &lt;pa.sh</span><br><span class="line">done</span><br><span class="line">partprobe</span><br><span class="line">#做raid0</span><br><span class="line">mdadm -C /dev/md0 -ayes -l0 -n$&#123;num&#125; /dev/sd[b-z]1</span><br><span class="line">#防止配置混乱</span><br><span class="line">echo DEVICE `ls /dev/sd[b-z]1` &gt;&gt;/etc/mdadm.conf</span><br><span class="line">mdadm -Ds &gt;&gt;/etc/mdadm.conf</span><br><span class="line">cat /etc/mdadm.conf</span><br><span class="line">#格式化并挂载</span><br><span class="line">mkfs.xfs /dev/md0</span><br><span class="line">mkdir /data1</span><br><span class="line">mount /dev/md0 /data1</span><br><span class="line">df -h</span><br><span class="line">#写入fstab，开机自动挂载</span><br><span class="line">echo &apos;/dev/md0 /data1  xfs  defaults  0 0&apos; &gt;&gt;/etc/fstab</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -347,7 +340,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -393,7 +386,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
