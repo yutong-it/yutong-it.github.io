@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="LRU 缓存机制 设计和实现一个 LRU（最近最少使用）缓存数据结构，使它应该支持一下操作：get 和 put。 get(key) - 如果 key 存在于缓存中，则获取 key 的 value（总是正数），否则返回 -1。 put(key,value) - 如果 key 不存在，请设置或插入 value。当缓存达到其容量时，它应该在插入新项目之前使最近最少使用的项目作废。12345678910">
+<meta name="description" content="深拷贝和浅拷贝先看浅拷贝1234567891011121314151617181920212223list_a  = [1,[&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;],(4,5,6)]list_b = list(list_a)list_a.append(7)list_a[1, [&amp;apos;a&amp;apos;, &amp;apos;b&amp;apos;], (4, 5, 6), 7]list_b[1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实现LRU缓存">
-<meta property="og:url" content="http://yoursite.com/2019/08/10/实现LRU缓存/index.html">
+<meta property="og:title" content="深拷贝和浅拷贝">
+<meta property="og:url" content="http://yoursite.com/2020/10/26/深拷贝和浅拷贝/index.html">
 <meta property="og:site_name" content="yutong-it">
-<meta property="og:description" content="LRU 缓存机制 设计和实现一个 LRU（最近最少使用）缓存数据结构，使它应该支持一下操作：get 和 put。 get(key) - 如果 key 存在于缓存中，则获取 key 的 value（总是正数），否则返回 -1。 put(key,value) - 如果 key 不存在，请设置或插入 value。当缓存达到其容量时，它应该在插入新项目之前使最近最少使用的项目作废。12345678910">
+<meta property="og:description" content="深拷贝和浅拷贝先看浅拷贝1234567891011121314151617181920212223list_a  = [1,[&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;],(4,5,6)]list_b = list(list_a)list_a.append(7)list_a[1, [&amp;apos;a&amp;apos;, &amp;apos;b&amp;apos;], (4, 5, 6), 7]list_b[1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-10T09:04:49.017Z">
+<meta property="og:updated_time" content="2020-10-26T08:31:09.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现LRU缓存">
-<meta name="twitter:description" content="LRU 缓存机制 设计和实现一个 LRU（最近最少使用）缓存数据结构，使它应该支持一下操作：get 和 put。 get(key) - 如果 key 存在于缓存中，则获取 key 的 value（总是正数），否则返回 -1。 put(key,value) - 如果 key 不存在，请设置或插入 value。当缓存达到其容量时，它应该在插入新项目之前使最近最少使用的项目作废。12345678910">
+<meta name="twitter:title" content="深拷贝和浅拷贝">
+<meta name="twitter:description" content="深拷贝和浅拷贝先看浅拷贝1234567891011121314151617181920212223list_a  = [1,[&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;],(4,5,6)]list_b = list(list_a)list_a.append(7)list_a[1, [&amp;apos;a&amp;apos;, &amp;apos;b&amp;apos;], (4, 5, 6), 7]list_b[1">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/10/实现LRU缓存/">
+  <link rel="canonical" href="http://yoursite.com/2020/10/26/深拷贝和浅拷贝/">
 
 
 
 
 
-  <title>实现LRU缓存 | yutong-it</title>
+  <title>深拷贝和浅拷贝 | yutong-it</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/10/实现LRU缓存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/26/深拷贝和浅拷贝/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">实现LRU缓存</h1>
+          <h1 class="post-title" itemprop="name headline">深拷贝和浅拷贝</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-10T17:04:14+08:00">
-                2019-08-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-26T16:30:41+08:00">
+                2020-10-26
               </time>
             
 
@@ -299,8 +299,23 @@
       
 
       
-        <blockquote>
-<p><em>LRU 缓存机制 设计和实现一个 LRU（最近最少使用）缓存数据结构，使它应该支持一下操作：get 和 put。 get(key) - 如果 key 存在于缓存中，则获取 key 的 value（总是正数），否则返回 -1。 put(key,value) - 如果 key 不存在，请设置或插入 value。当缓存达到其容量时，它应该在插入新项目之前使最近最少使用的项目作废。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class LRUCache(object):</span><br><span class="line">    def __init__(self, capacity):</span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.key = []</span><br><span class="line"></span><br><span class="line">    def get(self, key):</span><br><span class="line">        if key not in self.key:</span><br><span class="line">            return -1</span><br><span class="line">        self.key.remove(key)</span><br><span class="line">        self.key.append(key)</span><br><span class="line">        return self.cache[key]</span><br><span class="line"></span><br><span class="line">    def put(self, key, value):</span><br><span class="line">        if self.capacity == len(self.key):</span><br><span class="line">            del self.cache[self.key[0]]  #first</span><br><span class="line">            del self.key[0]              #second</span><br><span class="line">        self.cache[key] = value</span><br><span class="line">        self.key.append(key)</span><br></pre></td></tr></table></figure></p>
+        <h3 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h3><p><strong>先看浅拷贝</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">list_a  = [1,[&apos;a&apos;,&apos;b&apos;],(4,5,6)]</span><br><span class="line">list_b = list(list_a)</span><br><span class="line">list_a.append(7)</span><br><span class="line">list_a</span><br><span class="line"></span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;], (4, 5, 6), 7]</span><br><span class="line"></span><br><span class="line">list_b</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;], (4, 5, 6)]</span><br><span class="line"></span><br><span class="line">list_a[1].append(&apos;c&apos;)</span><br><span class="line">list_a</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], (4, 5, 6), 7]</span><br><span class="line"></span><br><span class="line">list_b</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], (4, 5, 6)]</span><br><span class="line"></span><br><span class="line">list_a[2] += (8,9)</span><br><span class="line">list_a</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], (4, 5, 6, 8, 9), 7]</span><br><span class="line"></span><br><span class="line">list_b</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], (4, 5, 6)]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>首先初始化了list_a，list_b为list_a的浅拷贝，list_a增加了一个元素7，但是list_b并没有变，因为list_a和list_b是两个不同的对象，并不共享内存地址，所以增加了一个元素后，list_b并不变化</p>
+</blockquote>
+<blockquote>
+<p>后来，list_a[1]中增加了一个元素’c’，list_a和list_b都变话了，因为list_a[1]和list_b[1]都是指向同一个列表，所以list_a[1]变化后，list_b[1]也会变化</p>
+</blockquote>
+<blockquote>
+<p>最后，list_a[2]增加(8,9)元组，发现list_a[2]变化了，但是list_b[2]没变化，因为元组是不可变的，当list_a[2]增加两个元素后，其实是创建了一个新的元组，所以list_b[2]还是指向原来的元组，没有变化</p>
+</blockquote>
+<p><strong>深拷贝</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import copy</span><br><span class="line">list_a  = [1,[&apos;a&apos;,&apos;b&apos;],(4,5,6)]</span><br><span class="line">list_b = copy.deepcopy(list_a)</span><br><span class="line">list_a.append(7)</span><br><span class="line">list_a[1].append(&apos;c&apos;)</span><br><span class="line">list_a[2] += (8,9)</span><br><span class="line"></span><br><span class="line">list_a</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], (4, 5, 6, 8, 9), 7]</span><br><span class="line">list_b</span><br><span class="line">[1, [&apos;a&apos;, &apos;b&apos;], (4, 5, 6)]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>发现通过深拷贝后的list_a和list_b是完全独立的两个list<br>这也有弊端，如果list_a里是本身的引用</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import copy</span><br><span class="line">list_a = [&apos;a&apos;]</span><br><span class="line">list_a.append[list_a]</span><br><span class="line">list_a</span><br><span class="line">[&apos;a&apos;, [...]]</span><br><span class="line">list_b = copy.deepcopy(list_a)</span><br><span class="line">list_b</span><br><span class="line">[&apos;a&apos;, [...]]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>程序很容易陷入死循环，但是程序并没有oom<br>因为deepcopy会对拷贝过的对象放到一个字典里，如果有则直接使用了。</p>
 </blockquote>
 
       
@@ -326,8 +341,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/12/hadoop使用笔记/" rel="next" title="hadoop使用笔记">
-                <i class="fa fa-chevron-left"></i> hadoop使用笔记
+              <a href="/2020/09/08/centos-做软raid0/" rel="next" title="centos 做软raid0">
+                <i class="fa fa-chevron-left"></i> centos 做软raid0
               </a>
             
           </div>
@@ -335,10 +350,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/31/raft协议/" rel="prev" title="raft协议">
-                raft协议 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -390,8 +401,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -433,6 +453,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#深拷贝和浅拷贝"><span class="nav-number">1.</span> <span class="nav-text">深拷贝和浅拷贝</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
