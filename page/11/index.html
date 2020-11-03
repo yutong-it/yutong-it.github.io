@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/10/实现LRU缓存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/raft协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/10/实现LRU缓存/" itemprop="url">实现LRU缓存</a></h1>
+                <a class="post-title-link" href="/2019/08/31/raft协议/" itemprop="url">raft协议</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-10T17:04:14+08:00">
-                2019-08-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T19:44:12+08:00">
+                2019-08-31
               </time>
             
 
@@ -300,8 +300,36 @@
       
         
           
-            <blockquote>
-<p><em>LRU 缓存机制 设计和实现一个 LRU（最近最少使用）缓存数据结构，使它应该支持一下操作：get 和 put。 get(key) - 如果 key 存在于缓存中，则获取 key 的 value（总是正数），否则返回 -1。 put(key,value) - 如果 key 不存在，请设置或插入 value。当缓存达到其容量时，它应该在插入新项目之前使最近最少使用的项目作废。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class LRUCache(object):</span><br><span class="line">    def __init__(self, capacity):</span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.key = []</span><br><span class="line"></span><br><span class="line">    def get(self, key):</span><br><span class="line">        if key not in self.key:</span><br><span class="line">            return -1</span><br><span class="line">        self.key.remove(key)</span><br><span class="line">        self.key.append(key)</span><br><span class="line">        return self.cache[key]</span><br><span class="line"></span><br><span class="line">    def put(self, key, value):</span><br><span class="line">        if self.capacity == len(self.key):</span><br><span class="line">            del self.cache[self.key[0]]  #first</span><br><span class="line">            del self.key[0]              #second</span><br><span class="line">        self.cache[key] = value</span><br><span class="line">        self.key.append(key)</span><br></pre></td></tr></table></figure></p>
+            <p>raft协议</p>
+<blockquote>
+<p>在分布式系统中，有许多一致性协议，如2pc、3pc、paxos、raft等<br>paxos由于难理解和难以实现到实际的应用中，所以此笔记来简单说下raft协议</p>
+</blockquote>
+<blockquote>
+<p>raft协议主要包含3部分内容：1、leader选举；2、log复制；3、安全性；（第3部分我没看）</p>
+</blockquote>
+<ul>
+<li>leader选举</li>
+</ul>
+<blockquote>
+<p>raft中有3中状态：follower、candidate、leader<br>2个timeout：election timeout、heartbeat timeout</p>
+</blockquote>
+<blockquote>
+<p>刚了解raft协议的时候，简单的认为，如果leader挂了，投票得到多的就可以当做leader，等到了解到log复制这部分的时候，明白了选主不是那么简单的，因为raft中的leader负责所有的读和写请求，所以不是所有candidate都可以选为leader</p>
+</blockquote>
+<blockquote>
+<p>我们先看下简单的leader选举过程：<br>raft刚启动的时候，大家都是follower状态，每个follower上面都有一个election timeout，当这个超时时间达到后：<br>follower–&gt;candidate<br>变candidate后，首先将自己的term（为了区分leader的任期，只要term一样，leader是同一个）加1，并且为自己投自己一票（小时候选班委的时候也干过。。。），并发给其他节点，收到投票请求的节点，判断发现term比自己的大，就会变为follower并投票给他，当candidate收到的选票大于大多数的时候：<br>candidate–&gt;leader<br>变为leader状态</p>
+</blockquote>
+<blockquote>
+<p>有一种情况是出现网络分区的时候<br>A  B | C D E<br>以上5个节点，A和B 可以通信，C、D、E可以通信<br>A和B会election timeout后term会一直增加，因为一直没有收到heartbeat，而C、D、E会顺利选出leader，并且可以对外提供服务，但当某时刻，网络又通了，此时由于A和B的term比C、D、E的大，此时会选A或B为leader，之前commit的log就会有问题，所以raft对此有一个优化，就是在选举之前，会进入preVote，提前和集群中的大多数进行一次通信，询问下是否可以选举，如果其他节点有leader或是收不到请求，是不会同意进行选举的，这时的term就不会一直增加</p>
+</blockquote>
+<ul>
+<li>log复制</li>
+</ul>
+<blockquote>
+<p>client每次进行操作都是经过leader，如果发送给follower，也会返回leader，让去请求leader；当leader收到请求后，首先更新自己的日志，然后发送append Entries到其他节点，如果大多数都成功了，则发送commit，表示已经commited，收到确认后，然后返回给客户端，并更新状态机（我理解为db）</p>
+</blockquote>
+<blockquote>
+<p>如果出现上面提到的网络分区，A之前是leader，当收到更新请求时，并不能commit，最后会维持uncommitted状态；CDE三台由于election timeout发生选举并成功选出leader提供服务，并commit了log；等网络恢复的时候，会将A和B没有commit的日志覆盖</p>
 </blockquote>
 
           
@@ -342,7 +370,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -388,7 +416,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
