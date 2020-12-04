@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/03/python多进程中join作用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/26/记录一次排查k8s容器重启的问题过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/11/03/python多进程中join作用/" itemprop="url">python多进程中join作用</a></h1>
+                <a class="post-title-link" href="/2020/11/26/记录一次排查k8s容器重启的问题过程/" itemprop="url">记录一次排查k8s容器重启的问题过程</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-03T10:41:00+08:00">
-                2020-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-26T17:26:56+08:00">
+                2020-11-26
               </time>
             
 
@@ -300,10 +300,16 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def worker(disk_name,mount_point):</span><br><span class="line">    code=check_disk(disk_name,mount_point)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">for disk_name,disk_info in disk_info.items():</span><br><span class="line">    mount_point=disk_info[&quot;mount&quot;]</span><br><span class="line">    p = multiprocessing.Process(target=worker, args=(disk_name,mount_point,))</span><br><span class="line">    p.start()</span><br><span class="line">    p.join(30)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>当程序从for循环里拿到第一个要遍历的值的时候，通过p.start()，子进程开始执行，并且调用worker函数继续执行，后面主进程调用p.join(30)，我的理解（可能不正确，后面再修改）是join的作用是join后面的程序要等待子程序执行结束后在执行下面的程序，也就是遍历完第一个值，只有执行完worker后再遍历下一个值，然后再执行下一个值的worker，将多进程变成了顺序执行，但是join的参数能够控制子程序worker的执行时间，如果超过参数设置的值就会kill掉worker进程，进入下一轮遍历</p>
+            <blockquote>
+<p>记录一次排查k8s容器重启的问题过程</p>
 </blockquote>
+<p>1、业务反馈有容器被重启了，想了解下容器重启的原因<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">业务找到我后，我首先是登录到k8s的集群上面，进行查找相关pod、deployment和replicaset的日志，命令如下：</span><br><span class="line">kubectl  describe deploy alarm-aaaa -n ns</span><br><span class="line">kubectl describe replicaset alarm-aaaa-555d497d5 -n ns</span><br><span class="line">kubectl  logs alarm-aaaa-555d497d5-92r6t -n ns</span><br><span class="line"></span><br><span class="line">发现并没有相关重启信息</span><br><span class="line">在pod的描述信息中发现了如下信息</span><br><span class="line">kubectl  describe po  alarm-aaaa-555d497d5-92r6t -n ns</span><br><span class="line">Reason: OOMKilled</span><br></pre></td></tr></table></figure></p>
+<p>2、把“因为oom导致容器重启”告知业务后，我继续排查，业务想要上一个容器的日志文件，k8s支持查看上一个容器的日志(–previous=true)，所以通过命令将日志导出后，给业务查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl  logs alarm-aaaa-555d497d5-92r6t -n ns --previous=true &gt;/tmp/a.log</span><br></pre></td></tr></table></figure></p>
+<p>3、由于要保持一个刨根问底的心，我继续查日志，在宿主机的/var/log/messages中找到相关信息，说明是容器确实被kill了，但是是容器把运行的进程杀了，并不是超过了jvm设置的最大内存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kernel: Killed process 16795 (java) total-vm:26985128kB, anon-rss:2076756kB, file-rss:17220kB, shmem-rss:0kB</span><br></pre></td></tr></table></figure>
+<p>4、通过上网查找相关信息，找到如下说法，印证了我的想法<br><strong>容器OOM和服务OOM不是一回事，容器OOM是因为容器占用内存超过了配置里内存的limit设置，导致容器服务把容器kill掉了，对与服务而言这时还是正常的，自然不会dump 日志了</strong></p>
+<p>5、延伸<br>当容器被kill的时候，可以通过pod的lifestyle 来执行脚本，将重要的数据保存，于是又从网上找到相关说法：“<br><strong>OOM 时并不会触发 preStop</strong>”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">所以根据以上的理解，我大概清楚了，如果是oom，pod并没有被重启，自然pod的lifestyle没有被执行到，只有pod被重启或是stop的时候才会执行lifestype里的东西</span><br></pre></td></tr></table></figure></p>
+<p>参考<br><a href="https://www.saxing.cn/archives/1594456155" target="_blank" rel="noopener">https://www.saxing.cn/archives/1594456155</a><br><a href="https://ld246.com/article/1600340869911" target="_blank" rel="noopener">https://ld246.com/article/1600340869911</a><br><a href="https://blog.csdn.net/feichen2016/article/details/109450597" target="_blank" rel="noopener">https://blog.csdn.net/feichen2016/article/details/109450597</a></p>
 
           
         
@@ -343,7 +349,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -389,7 +395,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
