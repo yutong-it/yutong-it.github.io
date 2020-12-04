@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/tcp-ip/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/lvs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/tcp-ip/" itemprop="url">tcp/ip</a></h1>
+                <a class="post-title-link" href="/2019/04/30/lvs/" itemprop="url">lvs</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T09:29:31+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T14:21:33+08:00">
+                2019-04-30
               </time>
             
 
@@ -300,25 +300,29 @@
       
         
           
-            <p>1.tcp/ip的体系结构</p>
-<blockquote>
-<p>tcp/ip共有5层<br>分别为：物理层、数据链路层、网络层、运输层、应用层<br>我们经常说的tcp/udp工作在第4层运输层，我的理解是用来传输的协议，而ip协议工作在第3层网络层，我理解是用来组建网络和识别网络。</p>
+            <p>lvs</p>
+<ol>
+<li>lvs种类<blockquote>
+<p>lvs可以在tcp/ip的4层和7层实现负载均衡，在4层通过ip+端口实现，有3种模式，分别为NAT、tunning隧道、DR模式；在7层应用层，主要是http请求，可以使用nginx的upstream实现负载均衡</p>
 </blockquote>
-<p>2.tcp和udp的区别</p>
-<blockquote>
-<p>tcp是传输控制协议，面向连接，用于提供可靠传输，建立连接需要3次握手，断开连接需要4次挥手<br>udp是用户数据报协议，无连接，传输不可靠，不需要建立连接和断开连接</p>
+</li>
+<li>NAT模式<blockquote>
+<p>所有的请求都会经过lvs集群，包括请求和相应，client通过访问vip来访问后端的RS，而后端的RS收到的请求也都是lvs集群的ip，无法获取到真实的client的ip（安装了toa的除外），vip可以是外网的ip也可以是内网的ip</p>
 </blockquote>
-<p>3.tcp的3次握手和4次挥手</p>
-<blockquote>
-<p>3次握手<br>1、client和server刚开始都处于CLOSED状态，server此时处于LISTEN状态<br>2、client发送SYN请求(SYN=1,seq=x);client状态变为SYN-SENT,<br>3、server收到后，发送ACK+SYN包（ACK=1,SYN=1,seq=k,ack=x+1);server发送后状态变为SYN-RCVD<br>4、client收到后，发送ACK包(ACK=1，seq=x+1,ack=k+1);client状态变为ESTABLISHED,server收到后状态变为ESTABLISEED</p>
+</li>
+<li>tunning模式<blockquote>
+<p>隧道模式，顾名思义就是在vip和RS之间建立一个隧道，lvs通过封装新的目的地址和端口和原来的源ip和端口，client过来的请求需要经过lvs的集群，但是响应就不经过lvs集群了，直接通过RS返回给client，但是需要RS有外网的ip，如果要通过外网访问</p>
 </blockquote>
-<blockquote>
-<p>4次挥手<br>1、client和server刚开始都处于ESTABLISED的状态，client首先进行关闭，发送FIN报文(FIN=1,seq=u);client进入FIN-WAIT-1状态<br>2、server收到后，发送ACK(ACK=1,ack=u+1,seq=k)；server状态变为CLOSE-WAIT状态，等待应用程序进行关闭，client进入FIN-WAIT-2状态<br>3、当server也没有数据进行发送的时候，发送FIN报文(FIN=1,seq=w,ack=u+1);server进入LAST-ACK状态<br>4、client收到server的FIN后，发送ACK(ACK=1,seq=u+1,ack=w+1)；client进入TIME-WAIT状态，server收到最后的ACK后，进入CLOSED，client等待2MSL后，也进行CLOSED,此时结束。</p>
+</li>
+<li>DR模式<blockquote>
+<p>直接路由模式，即所有的RS共用一个Vip，通过这个vip来接受请求，返回的响应由于公用vip,所以客户端无感知，缺点：lvs集群和Rs在同一个网段内</p>
 </blockquote>
-<p>4、为什么是3次握手，2次是否可以？为什么client收到server的确认后不能直接建立连接呢，还要再发送一次确认？</p>
-<blockquote>
-<p>是为了防止已经失效的请求又送到了server端，导致产生错误。<br>具体是这样的：client发送了一个请求连接报文，但是由于网络延迟，server暂时没有收到，client于是又发送了一个连接请求，和server建立连接并完成通信后释放连接，但此时server又收到了之前的连接请求，server认为client又要建立连接，于是发送确认请求，并要求建立连接，如果此时没有client的再次确认，则server会一直等待client发送数据，造成资源的浪费，由于没有client的确认，所以server就认为不是要建立连接，释放资源。</p>
+</li>
+<li>lvs的调度算法<blockquote>
+<p>分为：轮询、加权、ip_hash、权重轮询</p>
 </blockquote>
+</li>
+</ol>
 
           
         
@@ -358,7 +362,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -404,7 +408,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
