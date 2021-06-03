@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/redis总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/mac-os-linux-使用sshfs挂载远程服务器的目录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yutbupt@163.com">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/15/redis总结/" itemprop="url">redis总结</a></h1>
+                <a class="post-title-link" href="/2019/06/17/mac-os-linux-使用sshfs挂载远程服务器的目录/" itemprop="url">mac os/linux 使用sshfs挂载远程服务器的目录</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T23:34:44+08:00">
-                2019-05-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-17T10:41:10+08:00">
+                2019-06-17
               </time>
             
 
@@ -300,39 +300,33 @@
       
         
           
-            <p>redis总结</p>
-<p>redis是nosql的数据库，常用于作为缓存用，和memcache相比，他具有更多的数据格式</p>
+            <p><strong>mac os</strong><br>1、由于sshfs依赖于fuse<br>所以需要下载fuse</p>
 <blockquote>
-<p>redis的五种数据格式<br>string、list、set、zset、hash</p>
+<p><a href="https://github.com/osxfuse/osxfuse/releases" target="_blank" rel="noopener">https://github.com/osxfuse/osxfuse/releases</a></p>
 </blockquote>
-<p>1、string</p>
+<p>2、安装sshfs</p>
 <blockquote>
-<p>string是key-value存储形式，底层实现是sds，不是c语言的字符串<br>常用的命令如下：<br>set、get、mset、mget</p>
+<p><a href="https://github.com/osxfuse/sshfs/releases" target="_blank" rel="noopener">https://github.com/osxfuse/sshfs/releases</a></p>
 </blockquote>
-<p>2、set</p>
+<p>3、挂载即可</p>
 <blockquote>
-<p>set的key和string里的key一样，value是多个不重复的值，且没有顺序<br>常用命令如下：<br>sadd、scard、smembers、spop、sdiff、sunion</p>
+<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt<br>sshfs 用户名@远程主机IP:远程主机路径 本地挂载点</p>
 </blockquote>
-<p>3、list</p>
+<p><strong>linux</strong><br>centos<br>1、安装fuse和sshfs</p>
 <blockquote>
-<p>list是一种双向链表，有序也可以重复（zset有序，不能重复），底层使用链表实现<br>常用命令如下：<br>lpush、lpop、rpop、rpush、lrange、llen</p>
+<p>yum install -y fuse sshfs</p>
 </blockquote>
-<p>4、hash</p>
+<p>2、挂载</p>
 <blockquote>
-<p>hash 的key也是和string里的key一样，value是多个key-value的格式，底层实现是哈希表<br>常用命令如下：<br>hset、hget、hgetall、hkeys、hvals</p>
+<p>sshfs -o reconnect -o password_stdin [remote-user]@[remote_server]:/data05/yt  /Users/yut/mnt<br>sshfs 用户名@远程主机IP:远程主机路径 本地挂载点</p>
 </blockquote>
-<p>5、zset</p>
+<p>报错：<br>fuse: failed to exec fusermount: Permission denied<br>解决：</p>
 <blockquote>
-<p>zset相比于set，除了不能重复外，他是有序的，但是要比list复杂，当作有序列表的话，效率要比list低，底层使用跳跃表实现<br>常用命令如下：<br>zadd、zcard、zrange</p>
+<p>chmod +x /usr/bin/fusermount</p>
 </blockquote>
-<p>key相关的命令</p>
-<blockquote>
-<p>删除key<br>del key<br>加过期时间<br>expire seconds key<br>取消过期时间<br>persist key<br>匹配key<br>keys *<br>查看还剩多长时间过期<br>ttl key</p>
-</blockquote>
-<p>使用案例</p>
-<blockquote>
-<p>有这样多程序，需要从公共的一份数据里去拿自己的想要的数据，要解决并发冲突的问题，如果取到数据自己可以处理，则处理完继续去取数据，如果取出的数据自己无法处理，则通过rpush继续将此数据插入到列表里，供其他程序处理；此时就可以使用redis的list格式的数据</p>
-</blockquote>
+<p>免密挂载</p>
+<p>#ssh-keygen -t rsa </p>
+<p>#cat .ssh/id_rsa.pub | ssh [remote_user]@[remote_server] “cat - &gt;&gt;.ssh/authorized_keys”</p>
 
           
         
@@ -372,7 +366,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -418,7 +412,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -459,7 +453,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

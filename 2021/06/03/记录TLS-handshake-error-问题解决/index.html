@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yutong-it">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="记录一次问题排查过程  有同事反馈说k8s的api日志里一直有报错，刚开始也是没有头绪，后来找到了原因，现总结下排查过程当然这次排查问题时间比较久是因为基础知识缺乏，比如对keepalived和haproxy的功能和配置不熟悉导致先说问题吧k8s的api日志里有如下报错12345678I0603 06:19:22.500562       1 log.go:172] http: TLS hand">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录TLS handshake error 问题解决">
+<meta property="og:url" content="http://yoursite.com/2021/06/03/记录TLS-handshake-error-问题解决/index.html">
 <meta property="og:site_name" content="yutong-it">
+<meta property="og:description" content="记录一次问题排查过程  有同事反馈说k8s的api日志里一直有报错，刚开始也是没有头绪，后来找到了原因，现总结下排查过程当然这次排查问题时间比较久是因为基础知识缺乏，比如对keepalived和haproxy的功能和配置不熟悉导致先说问题吧k8s的api日志里有如下报错12345678I0603 06:19:22.500562       1 log.go:172] http: TLS hand">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-06-03T14:47:51.070Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yutong-it">
+<meta name="twitter:title" content="记录TLS handshake error 问题解决">
+<meta name="twitter:description" content="记录一次问题排查过程  有同事反馈说k8s的api日志里一直有报错，刚开始也是没有头绪，后来找到了原因，现总结下排查过程当然这次排查问题时间比较久是因为基础知识缺乏，比如对keepalived和haproxy的功能和配置不熟悉导致先说问题吧k8s的api日志里有如下报错12345678I0603 06:19:22.500562       1 log.go:172] http: TLS hand">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2021/06/03/记录TLS-handshake-error-问题解决/">
 
 
 
 
 
-  <title>yutong-it</title>
+  <title>记录TLS handshake error 问题解决 | yutong-it</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/06/03/记录TLS-handshake-error-问题解决/" itemprop="url">记录TLS handshake error 问题解决</a></h1>
+          <h1 class="post-title" itemprop="name headline">记录TLS handshake error 问题解决</h1>
         
 
         <div class="post-meta">
@@ -298,9 +299,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>记录一次问题排查过程</p>
 </blockquote>
 <p>有同事反馈说k8s的api日志里一直有报错，刚开始也是没有头绪，后来找到了原因，现总结下排查过程<br>当然这次排查问题时间比较久是因为基础知识缺乏，比如对keepalived和haproxy的功能和配置不熟悉导致<br>先说问题吧<br>k8s的api日志里有如下报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">I0603 06:19:22.500562       1 log.go:172] http: TLS handshake error from 172.28.0.11:42816: EOF</span><br><span class="line">I0603 06:19:28.506553       1 log.go:172] http: TLS handshake error from 172.28.0.11:43480: EOF</span><br><span class="line">I0603 06:19:34.510485       1 log.go:172] http: TLS handshake error from 172.28.0.11:44190: EOF</span><br><span class="line">I0603 06:19:40.510380       1 log.go:172] http: TLS handshake error from 172.28.0.11:44874: EOF</span><br><span class="line">I0603 06:19:46.512820       1 log.go:172] http: TLS handshake error from 172.28.0.11:45576: EOF</span><br><span class="line">I0603 06:19:52.513377       1 log.go:172] http: TLS handshake error from 172.28.0.11:46284: EOF</span><br><span class="line">I0603 06:19:58.514528       1 log.go:172] http: TLS handshake error from 172.28.0.11:46992: EOF</span><br><span class="line">I0603 06:20:08.517395       1 log.go:172] http: TLS handshake error from 172.28.0.11:48772: EOF</span><br></pre></td></tr></table></figure></p>
@@ -313,8 +312,6 @@
 <p>难道是haproxy的检查导致的<br>为了验证，手动去telnet api server<br>echo “” |telnet 172.28.0.11 6443<br>发现请求多次并没有EOF的日志出现，可能不是hproxy的原因<br>去查看keepalived的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp_script chk_proxy &#123;</span><br><span class="line">  #script &quot;nc -w 3 -z 127.0.0.1 4443&quot;</span><br><span class="line">  script &quot;killall -0 haproxy&quot;</span><br><span class="line">  interval 2</span><br><span class="line">  weight -100</span><br><span class="line">  fall 3</span><br><span class="line">  rise 2</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance kubernetes_ha &#123;</span><br><span class="line">  interface ens4f1</span><br><span class="line">  virtual_router_id 10</span><br><span class="line">  #nopreempt</span><br><span class="line">  priority 100</span><br><span class="line">  advert_int 1</span><br><span class="line">  authentication &#123;</span><br><span class="line">    auth_type MD5</span><br><span class="line">  &#125;</span><br><span class="line">  virtual_ipaddress &#123;</span><br><span class="line">    172.28.0.10/32</span><br><span class="line">  &#125;</span><br><span class="line">  track_script &#123;</span><br><span class="line">    chk_proxy</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>发现有个chk_proxy，查了下这个就是监控，所以非常有可能是此导致的，而且网上的配置一般是<br>”killall -0 haproxy“<br>替换#script “nc -w 3 -z 127.0.0.1 4443”<br>查看日志，搞定</p>
 
-          
-        
       
     </div>
     
@@ -331,12 +328,28 @@
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/04/k8s-pod中的容器同步时间/" rel="next" title="k8s pod中的容器同步时间">
+                <i class="fa fa-chevron-left"></i> k8s pod中的容器同步时间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -346,14 +359,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -361,6 +371,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -557,6 +571,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
